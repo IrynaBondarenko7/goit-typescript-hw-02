@@ -7,6 +7,8 @@
   Виправте тип у аргументі функції так, щоб не було помилок типу.
 */
 
+//Утилітний тип Partial<T>
+
 type User = {
   name: string;
   surname: string;
@@ -14,9 +16,15 @@ type User = {
   password: string;
 };
 
-function createOrUpdateUser<T>(initialValues: T): T {
-  // Оновлення користувача
-  return initialValues;
+function createOrUpdateUser(initialValues: Partial<User>): User {
+  const defaultUser: User = {
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+  };
+
+  return { ...defaultUser, ...initialValues };
 }
 
 createOrUpdateUser({ email: "user@mail.com", password: "password123" });
